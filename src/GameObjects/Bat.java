@@ -2,7 +2,6 @@ import java.awt.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
 
-//球拍类，继承RectangleBody类
 public class Bat extends RectangleBody{
 	
 	public float pointX;
@@ -18,25 +17,21 @@ public class Bat extends RectangleBody{
 		this.colorR=33;
 		this.colorG=33;
 		this.colorB=33;
-		
-		//设置刚体定义
+
 		bDef=new BodyDef();
 		bDef.position.set(pointX, pointY);
-		
-		//设置形状定义
+
 		pDef=new PolygonDef();
 		pDef.setAsBox(width/2, height/2);    
 		pDef.friction=0.001f;
 		pDef.density=0;
 		pDef.restitution=1f;
 		pDef.filter=batFilter;
-		
-		//创建刚体
+
 		body=world.createBody(bDef);
 		body.createShape(pDef);
 	}
-	
-	//覆写父类抽象函数draw，画球拍
+
 	public void draw(Graphics g){
 		if(exist)
 		{

@@ -1,13 +1,14 @@
 import java.awt.*;
+
+import AbstractObject.CircleBody;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
 
-//bonusÀà£¬¼Ì³ĞCircleBodyÀà
-public class Bonus extends CircleBody{
+public class Bonus extends CircleBody {
 	
-	public boolean exist=true;             //×´Ì¬Î»
+	public boolean exist=true;
 	
-	//bonusÊôĞÔ
+	//bonusï¿½ï¿½ï¿½ï¿½
 	public int attribute_widen1=1;
 	public int attribute_widen2=2;
 	public int attribute_narrow1=3;
@@ -28,8 +29,8 @@ public class Bonus extends CircleBody{
 		this.colorG=0;
 		this.colorB=128;
 		
-		//Ëæ»úÉèÖÃbonusÊôĞÔ
-		double a=Math.random();    //¾ö¶¨bonusÊôĞÔ
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bonusï¿½ï¿½ï¿½ï¿½
+		double a=Math.random();    //ï¿½ï¿½ï¿½ï¿½bonusï¿½ï¿½ï¿½ï¿½
 		if(a<0.1) attribute=attribute_widen1;
 		else if(a<0.2) attribute=attribute_widen2;
 		else if(a<0.3) attribute=attribute_narrow1;
@@ -41,29 +42,29 @@ public class Bonus extends CircleBody{
 		else if(a<0.99) attribute=attribute_death;
 		else attribute=attribute_success;
 		
-		//Ëæ»ú¾ö¶¨bonusÊôĞÔÊÇ·ñ¿É¼û
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bonusï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½É¼ï¿½
 		double b=Math.random();              
 		if(b<0.2) attribute_visible=false;
 		
-		//ÉèÖÃ¸ÕÌå¶¨Òå
+		//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½å¶¨ï¿½ï¿½
 		bDef=new BodyDef();
 		bDef.isBullet = true;
 		bDef.position.set(pointX, pointY);
 		
-		//ÉèÖÃĞÎ×´¶¨Òå
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½ï¿½ï¿½
 		cDef=new CircleDef();
 		cDef.radius=radius;
 		cDef.density=1.5f;
 		cDef.filter=bonusFilter;
 		
-		//´´½¨¸ÕÌå
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		body=world.createBody(bDef);
 		body.createShape(cDef);
 		body.m_type=Body.e_dynamicType;
 		body.setMassFromShapes();
 	}
 	
-	//¸²Ğ´¸¸Àà³éÏóº¯Êıdraw£¬»­ÇòÅÄ
+	//ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½drawï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void draw(Graphics g){
 		if(exist)
 		{
@@ -103,7 +104,7 @@ public class Bonus extends CircleBody{
 		}
 	}
 	
-	//¸²Ğ´¸¸Àà³éÏóº¯ÊıwhenHit£¬½øĞĞÅö×²´¦Àí
+	//ï¿½ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½whenHitï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
 	public int whenHit(){
 		return attribute;
 	}

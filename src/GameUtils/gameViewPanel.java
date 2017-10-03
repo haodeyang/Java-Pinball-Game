@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+
+import PhysicalObject.Ball;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.dynamics.contacts.ContactPoint;
 import org.jbox2d.dynamics.contacts.ContactResult;
@@ -11,21 +13,21 @@ import org.jbox2d.common.*;
 //Panel
 public class gameViewPanel extends JPanel implements Runnable{
 	
-	//µØÍ¼Ñ¡Ôñ
+	//ï¿½ï¿½Í¼Ñ¡ï¿½ï¿½
 	int choice=0;
 	
-	//Ïß³Ì
+	//ï¿½ß³ï¿½
 	Thread t;
 	Thread backM;
 	backgroundMusic backMusic;
 	Thread bumpM;
 	
-	//ÎïÀíÊÀ½ç
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	AABB worldAABB;
 	World world;
 	Vec2 gravity;
 	
-	//ÎïÀíÊÀ½çÖÐËùÓÐ¸ÕÌå
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½
 	Brick[][] bricks=new Brick[10][16];
 	Ball ball;
 	Bat bat;
@@ -34,25 +36,25 @@ public class gameViewPanel extends JPanel implements Runnable{
 	Ground ground3;
 	Ground ground4;
 	
-	//¸÷ÀàÅö×²¹ýÂËÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	FilterData brickFilter;
 	FilterData ballFilter;
 	FilterData batFilter;
 	FilterData bonusFilter;
 	FilterData groundFilter;
 
-	//ÊµÊ±Êó±ê×ø±ê
+	//ÊµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	float mouseX=0,mouseY=0;
 	
-	//¸÷Àà¼àÌýÆ÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	myMouseMotionListener mouseHandler1;
 	myMouseListener mouseHandler2;
 	myContactListener contactHandler;
 	
-	//Ðè´Ý»Ù¸ÕÌå¼ÇÂ¼
+	//ï¿½ï¿½Ý»Ù¸ï¿½ï¿½ï¿½ï¿½Â¼
 	ArrayList<Body> bodyToDestroy=new ArrayList<Body>();
 		
-	//bonusÐ§¹ûÖ¸Ê¾
+	//bonusÐ§ï¿½ï¿½Ö¸Ê¾
 	ArrayList<Bonus> bonuses=new ArrayList<Bonus>();
 	int bonusToCreate=0;
 	boolean batToCreate=false;
@@ -66,14 +68,14 @@ public class gameViewPanel extends JPanel implements Runnable{
 	boolean fireEffect=true;
 	int fireCounter=0;
 	
-	//Ë«»º³å
+	//Ë«ï¿½ï¿½ï¿½ï¿½
 	Image offScreenImage;   
 	
-	//¼Æ·ÖÆ÷
+	//ï¿½Æ·ï¿½ï¿½ï¿½
 	int score=0;   
 	boolean shouldShowScore=false;   
 	
-	//ÁÙÊ±±äÁ¿
+	//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 	int i=0;                         
 	int j=0;
 	int k=0;
@@ -82,7 +84,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 	int time;
 	int addScore;
 	
-	//´´½¨ÓÎÏ·½çÃæ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 	public gameViewPanel(int choice){
 		this.choice=choice;
 		initiateWorld();
@@ -95,7 +97,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 		backM.start();
 	}
 	
-	//³õÊ¼»¯Õû¸öÎïÀíÊÀ½ç
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void initiateWorld(){
 		CONSTANT.initImage(this);
 		offScreenImage=this.createImage(CONSTANT.SCREEN_WIDTH,CONSTANT.SCREEN_HEIGHT);
@@ -403,7 +405,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 		world.setContactListener(contactHandler);		
 	}
 	
-	//»æÖÆÓÎÏ·½çÃæ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 	public void paint(Graphics g)
 	{	
 		
@@ -450,7 +452,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 
 
 
-	//Ïß³ÌÔËÐÐ
+	//ï¿½ß³ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void run()
 	{
 		while(!CONSTANT.shouldStep)
@@ -571,7 +573,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 	
 	}
 	
-	//ÕìÌýÅö×²ÊÂ¼þ²¢½øÐÐÅö×²´¦Àí
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
 	class myContactListener implements ContactListener{
 		public void add(ContactPoint point) {
 			ContactOperate(point.shape1.getBody(),point.shape2.getBody());
@@ -582,7 +584,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 		public void result(ContactResult point) {}		
 	}
 	
-	//ÕìÌýÊó±êÒÆ¶¯ÊÂ¼þ£¬¸üÐÂÅÄ×ÓÎ»ÖÃ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 	class myMouseMotionListener implements MouseMotionListener{
 		public void mouseDragged(MouseEvent e) {	
 		}
@@ -598,10 +600,10 @@ public class gameViewPanel extends JPanel implements Runnable{
 		
 	}
 	
-	//ÕìÌýÊó±êµã»÷ÊÂ¼þ£¬Ö¸Ê¾ÎïÀíÒýÇæ¿ªÊ¼¹¤×÷
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ö¸Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¿ªÊ¼ï¿½ï¿½ï¿½ï¿½
 	class myMouseListener implements MouseListener{
 		@SuppressWarnings("unused")
-		public void mouseClicked(MouseEvent e) {      //µ±Êó±êµã»÷Ê±£¬ÎïÀíÒýÇæ¿ªÊ¼¹¤×÷£¬ÅÄ×Ó¿ÉÒÆ¶¯,¿ªÊ¼¼ÆÊ±
+		public void mouseClicked(MouseEvent e) {      //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½Æ¶ï¿½,ï¿½ï¿½Ê¼ï¿½ï¿½Ê±
 			CONSTANT.shouldStep=true;
 			CONSTANT.batCanMove=true;
 			startMili=System.currentTimeMillis();	
@@ -614,16 +616,16 @@ public class gameViewPanel extends JPanel implements Runnable{
 	}
 	
 		
-	//Åö×²´¦Àí
+	//ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½
 	void ContactOperate(Body b1,Body b2){		
-		//¼ì²âÊÇ·ñÎª Ð¡ÇòÓë×©¿éÅö×²
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª Ð¡ï¿½ï¿½ï¿½ï¿½×©ï¿½ï¿½ï¿½ï¿½×²
 		for(int i=0;i<10;i++)
 			for(int j=0;j<16;j++){
 				if(bricks[i][j].exist){
 					if(b1==bricks[i][j].body||b2==bricks[i][j].body)
 					{	
 						CONSTANT.bump=true;
-						if(ball.isFireBall){   //Èç¹ûÐ¡ÇòÊÇ»ðÇò ,×²µ½Ò»¸ö×©¿éÔò¸½½ü¾Å¹¬¸ñÄÚµÄ×©¿é¶¼Ëã×²µ½Ò»´Î
+						if(ball.isFireBall){   //ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ç»ï¿½ï¿½ï¿½ ,×²ï¿½ï¿½Ò»ï¿½ï¿½×©ï¿½ï¿½ï¿½ò¸½½ï¿½ï¿½Å¹ï¿½ï¿½ï¿½ï¿½Úµï¿½×©ï¿½é¶¼ï¿½ï¿½×²ï¿½ï¿½Ò»ï¿½ï¿½
 							if(i-1>=0&&j-1>=0&&bricks[i-1][j-1].exist)  bricks[i-1][j-1].whenHit(bodyToDestroy);
 							if(i-1>=0&&bricks[i-1][j].exist)  bricks[i-1][j].whenHit(bodyToDestroy);
 							if(i-1>=0&&j+1<=15&&bricks[i-1][j+1].exist)  bricks[i-1][j+1].whenHit(bodyToDestroy);
@@ -641,18 +643,18 @@ public class gameViewPanel extends JPanel implements Runnable{
 							else if(bricks[i][j] instanceof Brick2) score+=200;
 							else if(bricks[i][j] instanceof Brick3) score+=300;
 						}
-						//ÔÚwhenHitÀïÃæ²»ÄÜÖ±½Ódestroybody£¬ÒòÎªÕâÊ±worldÃ¦×Ô¼ºµÄµü´ú£¬²»»áÀíÄãµÄ¡£¡£
-						//ÕâÊ±Ó¦°ÑÐèÒªdestroyµÄbodyÓÃarraylist¼ÇÂ¼ÏÂÀ´£¬µ½runÀïÃæÃ¿´ÎstepÍêºóÔÙÒ»¸ö¸ödestroy
+						//ï¿½ï¿½whenHitï¿½ï¿½ï¿½æ²»ï¿½ï¿½Ö±ï¿½ï¿½destroybodyï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ê±worldÃ¦ï¿½Ô¼ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½
+						//ï¿½ï¿½Ê±Ó¦ï¿½ï¿½ï¿½ï¿½Òªdestroyï¿½ï¿½bodyï¿½ï¿½arraylistï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½runï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½stepï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½destroy
 					}
 					
 				}
 			}
 		
-		//¼ì²âÊÇ·ñÎª Ð¡ÇòÓëÅÄ×ÓÅö×²
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
 		if(b1==ball.body&&b2==bat.body || b2==ball.body&&b1==bat.body) 
 			CONSTANT.bump=true;
 	
-		//¼ì²âÊÇ·ñÎª Ð¡ÇòÓëµØ°åÅö×²
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª Ð¡ï¿½ï¿½ï¿½ï¿½Ø°ï¿½ï¿½ï¿½×²
 		if(b1==ball.body&&b2==ground1.body || b2==ball.body&&b1==ground1.body) 
 		{
 			CONSTANT.fail=true;
@@ -661,21 +663,21 @@ public class gameViewPanel extends JPanel implements Runnable{
 			bodyToDestroy.add(ball.body);
 		}
 		
-		//¼ì²âÊÇ·ñÎª bonus·¢ÉúÅö×²
+		//ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îª bonusï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
 		for(Bonus bonus: bonuses)
 		{
-			//bonusÓëµØ°åÅö×²
+			//bonusï¿½ï¿½Ø°ï¿½ï¿½ï¿½×²
 			if(b1==bonus.body&&b2==ground1.body || b2==bonus.body&&b1==ground1.body) 
 			{
 				bonus.exist=false;
 				bodyToDestroy.add(bonus.body);
 			}
-			//bonusÓëÅÄ×ÓÅö×²
-			else if(b1==bonus.body&&b2==bat.body || b2==bonus.body&&b1==bat.body)  //bonus×²ÅÄ×Ó
+			//bonusï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
+			else if(b1==bonus.body&&b2==bat.body || b2==bonus.body&&b1==bat.body)  //bonus×²ï¿½ï¿½ï¿½ï¿½
 			{
 				bonus.exist=false;
 				bodyToDestroy.add(bonus.body);
-				//ÈôbonusÎª¼Ó³¤ÅÄ×Ó
+				//ï¿½ï¿½bonusÎªï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½
 				if(bonus.whenHit()==bonus.attribute_widen1)  
 				{
 					bat.exist=false;
@@ -685,7 +687,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 					lengthEffect=true;
 					lengthCounter=0;
 				}
-				//ÈôbonusÎª³¬¼¶¼Ó³¤ÅÄ×Ó
+				//ï¿½ï¿½bonusÎªï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½
 				else if(bonus.whenHit()==bonus.attribute_widen2) 
 				{
 					bat.exist=false;
@@ -695,8 +697,8 @@ public class gameViewPanel extends JPanel implements Runnable{
 					lengthEffect=true;
 					lengthCounter=0;
 				}
-				//ÈôbonusÎªËõ¶ÌÅÄ×Ó
-				else if(bonus.whenHit()==bonus.attribute_narrow1)  //Ëõ¶ÌÅÄ×Ó
+				//ï¿½ï¿½bonusÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_narrow1)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					bat.exist=false;
 					bodyToDestroy.add(bat.body);
@@ -705,8 +707,8 @@ public class gameViewPanel extends JPanel implements Runnable{
 					lengthEffect=true;
 					lengthCounter=0;
 				}
-				//ÈôbonusÎª³¬¼¶Ëõ¶ÌÅÄ×Ó
-				else if(bonus.whenHit()==bonus.attribute_narrow2) //Ëõ¶ÌÅÄ×Ó
+				//ï¿½ï¿½bonusÎªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_narrow2) //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					bat.exist=false;
 					bodyToDestroy.add(bat.body);
@@ -715,37 +717,37 @@ public class gameViewPanel extends JPanel implements Runnable{
 					lengthEffect=true;
 					lengthCounter=0;
 				}
-				//ÈôbonusÎª¼Ó¿ìÇòËÙ
+				//ï¿½ï¿½bonusÎªï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½
 				else if(bonus.whenHit()==bonus.attribute_fasten)
 				{
 					ball.body.setLinearVelocity(new Vec2(ball.body.getLinearVelocity().x*1.5f,ball.body.getLinearVelocity().y*1.5f));
 				}
-				//ÈôbonusÎª¼õÐ¡ÇòËÙ
-				else if(bonus.whenHit()==bonus.attribute_slow)   //¼õÂýÇòËÙ
+				//ï¿½ï¿½bonusÎªï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_slow)   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				{
 					ball.body.setLinearVelocity(new Vec2(ball.body.getLinearVelocity().x/1.5f,ball.body.getLinearVelocity().y/1.5f));
 				}
-				//ÈôbonusÎª ±ä´©Í¸Çò
+				//ï¿½ï¿½bonusÎª ï¿½ä´©Í¸ï¿½ï¿½
 				else if(bonus.whenHit()==bonus.attribute_penetrate)
 				{
 					pballToCreate=true;
 					penetrateEffect=true;
 					penetrateCounter=0;
 				}
-				//ÈôbonusÎª ±ä»ðÇò
-				else if(bonus.whenHit()==bonus.attribute_fire)    //ÉèÖÃÐ¡ÇòÎª»ðÇò
+				//ï¿½ï¿½bonusÎª ï¿½ï¿½ï¿½ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_fire)    //ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
 				{
 					ball.isFireBall=true;
 					fireEffect=true;
 					fireCounter=0;
 				}
-				//ÈôbonusÎªÖ±½ÓËÀÍö
-				else if(bonus.whenHit()==bonus.attribute_death)  //ÓÎÏ·½áÊø
+				//ï¿½ï¿½bonusÎªÖ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_death)  //ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
 				{
 					CONSTANT.fail=true;
 				}
-				//ÈôbonusÎªÖ±½ÓÍ¨¹Ø
-				else if(bonus.whenHit()==bonus.attribute_success)                                          //ÓÎÏ·»ñÊ¤
+				//ï¿½ï¿½bonusÎªÖ±ï¿½ï¿½Í¨ï¿½ï¿½
+				else if(bonus.whenHit()==bonus.attribute_success)                                          //ï¿½ï¿½Ï·ï¿½ï¿½Ê¤
 				{
 					CONSTANT.win=true;
 				}
@@ -753,7 +755,7 @@ public class gameViewPanel extends JPanel implements Runnable{
 		}
 	}
 	
-	//ÉèÖÃ¸÷ÖÖ¸ÕÌåµÄÅö×²¹ýÂËÆ÷
+	//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void createFilter(){
 		brickFilter=new FilterData();
 		brickFilter.categoryBits=2;			brickFilter.maskBits=4;
