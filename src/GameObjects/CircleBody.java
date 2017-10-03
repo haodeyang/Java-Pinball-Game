@@ -12,8 +12,25 @@ public abstract class CircleBody {
 	int colorR;
 	int colorG;
 	int colorB;
-	
+
+	float pointX;
+	float pointY;
 	float radius;
+
+	FilterData filter;
+
+	CircleBody(float pointX, float pointY, float radius, World world, int colorR, int colorG, int colorB, FilterData filter) {
+		this.pointX = pointX;
+		this.pointY = pointY;
+		this.radius = radius;
+		this.world = world;
+		this.colorR = colorR;
+		this.colorG = colorG;
+		this.colorB = colorB;
+		this.filter = filter;
+	}
+
+	abstract void initialize();
 	
 	abstract void draw(Graphics g);
 }

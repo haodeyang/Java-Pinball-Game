@@ -7,40 +7,35 @@ import org.jbox2d.collision.*;
 import GameUtils.CONSTANT;
 
 public class Bat extends RectangleBody {
-	
-	public float pointX;
-	public float pointY;
-	public boolean exist=true;
+
+	public boolean exist = true;
 	
 	public Bat(float pointX, float pointY, float width, float height, World world, FilterData batFilter) {
-		this.pointX=pointX;
-		this.pointY=pointY;
-		this.world=world;
-		this.width=width;
-		this.height=height;
-		this.colorR=33;
-		this.colorG=33;
-		this.colorB=33;
+		super(pointX, pointY, width, height, world, 33, 33, 33, batFilter);
+		initialize();
+	}
 
-		bDef=new BodyDef();
-		bDef.position.set(pointX, pointY);
+	@Override
+	void initialize() {
+		this.bDef = new BodyDef();
+		this.bDef.position.set(this.pointX, this.pointY);
 
-		pDef=new PolygonDef();
-		pDef.setAsBox(width/2, height/2);    
-		pDef.friction=0.001f;
-		pDef.density=0;
-		pDef.restitution=1f;
-		pDef.filter=batFilter;
+		this.pDef = new PolygonDef();
+		this.pDef.setAsBox(width/2, height/2);
+		this.pDef.friction = 0.001f;
+		this.pDef.density = 0;
+		this.pDef.restitution = 1f;
+		this.pDef.filter = this.filter;
 
-		body=world.createBody(bDef);
-		body.createShape(pDef);
+		this.body=world.createBody(bDef);
+		this.body.createShape(pDef);
 	}
 
 	public void draw(Graphics g){
-		if(exist) {
-			Color c=new Color(colorR,colorG,colorB);
+		if(this.exist) {
+			Color c = new Color(this.colorR, this.colorG, this.colorB);
 			g.setColor(c);
-			g.fillRect((int)(body.getPosition().x* CONSTANT.RATE+ CONSTANT.SCREEN_WIDTH/2- CONSTANT.BAT_WIDTH/2), (int)(CONSTANT.SCREEN_HEIGHT/2-body.getPosition().y* CONSTANT.RATE- CONSTANT.BAT_HEIGHT/2),(int) CONSTANT.BAT_WIDTH,(int) CONSTANT.BAT_HEIGHT);
+			g.fillRect((int)(this.body.getPosition().x * CONSTANT.RATE + CONSTANT.SCREEN_WIDTH / 2 - CONSTANT.BAT_WIDTH / 2), (int)(CONSTANT.SCREEN_HEIGHT / 2 - this.body.getPosition().y * CONSTANT.RATE - CONSTANT.BAT_HEIGHT / 2), (int) CONSTANT.BAT_WIDTH, (int) CONSTANT.BAT_HEIGHT);
 		}
 	}
 }
