@@ -1,14 +1,18 @@
+package GameObjects;
+
 import java.awt.*;
+
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
+import GameUtils.CONSTANT;
 
-public class Bat extends RectangleBody{
+public class Bat extends RectangleBody {
 	
 	public float pointX;
 	public float pointY;
 	public boolean exist=true;
 	
-	public Bat(float pointX, float pointY, float width, float height, World world, FilterData batFilter){
+	public Bat(float pointX, float pointY, float width, float height, World world, FilterData batFilter) {
 		this.pointX=pointX;
 		this.pointY=pointY;
 		this.world=world;
@@ -33,11 +37,10 @@ public class Bat extends RectangleBody{
 	}
 
 	public void draw(Graphics g){
-		if(exist)
-		{
+		if(exist) {
 			Color c=new Color(colorR,colorG,colorB);
 			g.setColor(c);
-			g.fillRect((int)(body.getPosition().x*CONSTANT.RATE+CONSTANT.SCREEN_WIDTH/2-CONSTANT.BAT_WIDTH/2), (int)(CONSTANT.SCREEN_HEIGHT/2-body.getPosition().y*CONSTANT.RATE-CONSTANT.BAT_HEIGHT/2),(int)CONSTANT.BAT_WIDTH,(int)CONSTANT.BAT_HEIGHT);
+			g.fillRect((int)(body.getPosition().x* CONSTANT.RATE+ CONSTANT.SCREEN_WIDTH/2- CONSTANT.BAT_WIDTH/2), (int)(CONSTANT.SCREEN_HEIGHT/2-body.getPosition().y* CONSTANT.RATE- CONSTANT.BAT_HEIGHT/2),(int) CONSTANT.BAT_WIDTH,(int) CONSTANT.BAT_HEIGHT);
 		}
 	}
 }

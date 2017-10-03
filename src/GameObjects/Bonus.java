@@ -1,14 +1,14 @@
-import java.awt.*;
+package GameObjects;
 
-import AbstractObject.CircleBody;
+import java.awt.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
+import GameUtils.CONSTANT;
 
 public class Bonus extends CircleBody {
 	
 	public boolean exist=true;
-	
-	//bonus����
+
 	public int attribute_widen1=1;
 	public int attribute_widen2=2;
 	public int attribute_narrow1=3;
@@ -22,15 +22,14 @@ public class Bonus extends CircleBody {
 	public int attribute;
 	boolean attribute_visible=true;
 	
-	public Bonus(float pointX, float pointY, float radius, World world, FilterData bonusFilter){
+	public Bonus(float pointX, float pointY, float radius, World world, FilterData bonusFilter) {
 		this.radius=radius;
 		this.world=world;
 		this.colorR=255;
 		this.colorG=0;
 		this.colorB=128;
-		
-		//�������bonus����
-		double a=Math.random();    //����bonus����
+
+		double a=Math.random();
 		if(a<0.1) attribute=attribute_widen1;
 		else if(a<0.2) attribute=attribute_widen2;
 		else if(a<0.3) attribute=attribute_narrow1;
@@ -41,37 +40,32 @@ public class Bonus extends CircleBody {
 		else if(a<0.8) attribute=attribute_fire;
 		else if(a<0.99) attribute=attribute_death;
 		else attribute=attribute_success;
-		
-		//�������bonus�����Ƿ�ɼ�
+
 		double b=Math.random();              
 		if(b<0.2) attribute_visible=false;
-		
-		//���ø��嶨��
+
 		bDef=new BodyDef();
 		bDef.isBullet = true;
 		bDef.position.set(pointX, pointY);
-		
-		//������״����
+
 		cDef=new CircleDef();
 		cDef.radius=radius;
 		cDef.density=1.5f;
 		cDef.filter=bonusFilter;
-		
-		//��������
+
 		body=world.createBody(bDef);
 		body.createShape(cDef);
 		body.m_type=Body.e_dynamicType;
 		body.setMassFromShapes();
 	}
-	
-	//��д���������draw��������
+
 	public void draw(Graphics g){
 		if(exist)
 		{
 			Color c=new Color(colorR,colorG,colorB);
 			g.setColor(c);
-			int bonus_x=(int)(body.getPosition().x*CONSTANT.RATE+CONSTANT.SCREEN_WIDTH/2);
-			int bonus_y=(int)(-body.getPosition().y*CONSTANT.RATE+CONSTANT.SCREEN_HEIGHT/2);
+			int bonus_x=(int)(body.getPosition().x* CONSTANT.RATE+ CONSTANT.SCREEN_WIDTH/2);
+			int bonus_y=(int)(-body.getPosition().y* CONSTANT.RATE+ CONSTANT.SCREEN_HEIGHT/2);
 			int bonus_r=(int)(CONSTANT.BONUS_RADIUS);			
 			Font f=new Font("Arial",Font.BOLD,13);
 			g.setFont(f);
@@ -103,8 +97,7 @@ public class Bonus extends CircleBody {
 			}
 		}
 	}
-	
-	//��д���������whenHit��������ײ����
+
 	public int whenHit(){
 		return attribute;
 	}

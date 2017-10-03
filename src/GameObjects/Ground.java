@@ -1,11 +1,15 @@
+package GameObjects;
+
 import java.util.ArrayList;
+
+import GameObjects.Brick;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
 
-//µØ°åÀà
-public class Ground extends Brick{
+//ï¿½Ø°ï¿½ï¿½ï¿½
+public class Ground extends Brick {
 	
-	public Ground(float pointX, float pointY, float width, float height,boolean exist, World world, FilterData groundFilter){
+	public Ground(float pointX, float pointY, float width, float height,boolean exist, World world, FilterData groundFilter) {
 		this.width=width;
 		this.world=world;
 		this.height=height;
@@ -15,11 +19,11 @@ public class Ground extends Brick{
 		this.exist=exist;
 		if(exist)
 		{
-			//ÉèÖÃ¸ÕÌå¶¨Òå
+			//ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½å¶¨ï¿½ï¿½
 			bDef=new BodyDef();
 			bDef.position.set(pointX, pointY);
 			
-			//ÉèÖÃÐÎ×´¶¨Òå
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´ï¿½ï¿½ï¿½ï¿½
 			pDef=new PolygonDef();
 			pDef.setAsBox(width/2, height/2);   
 			pDef.friction=0;
@@ -27,7 +31,7 @@ public class Ground extends Brick{
 			pDef.restitution=1f;
 			pDef.filter=groundFilter;
 			
-			//´´½¨¸ÕÌå
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			body=world.createBody(bDef);
 			body.createShape(pDef);
 			body.m_type=Body.e_staticType;   	

@@ -1,18 +1,18 @@
-package PhysicalObject;
+package GameObjects;
 
 import java.awt.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
 import org.jbox2d.common.*;
-import AbstractObject.CircleBody;
+import GameUtils.CONSTANT;
 
 
-public class Ball extends CircleBody{
+public class Ball extends CircleBody {
 	
 	public boolean exist=true;
 	public boolean isFireBall=false;
 	
-	public Ball(float pointX, float pointY, float radius, World world, FilterData ballFilter){
+	public Ball(float pointX, float pointY, float radius, World world, FilterData ballFilter) {
 		this.radius=radius;
 		this.world=world;
 		this.colorR=33;
@@ -38,9 +38,8 @@ public class Ball extends CircleBody{
 	}
 
 	@Override
-	public void draw(Graphics g){
-		if(exist)
-		{
+	public void draw(Graphics g) {
+		if(exist) {
 			Color c=new Color(colorR,colorG,colorB);
 			g.setColor(c);
 			int ball_x=(int)(body.getPosition().x* CONSTANT.RATE+ CONSTANT.SCREEN_WIDTH/2);

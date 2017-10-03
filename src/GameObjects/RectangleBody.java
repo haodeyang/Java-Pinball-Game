@@ -1,13 +1,15 @@
+package GameObjects;
+
 import java.awt.*;
 import org.jbox2d.dynamics.*;
 import org.jbox2d.collision.*;
 
-//方形物体类，抽象
+//锟斤拷锟斤拷锟斤拷锟斤拷锟洁，锟斤拷锟斤拷
 public abstract class RectangleBody {
 	World world;
-	public Body body;   //物体对应的物理世界里的物体
-	BodyDef bDef;       //物体定义
-	PolygonDef pDef;    //形状定义
+	public Body body;   //锟斤拷锟斤拷锟接︼拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷
+	BodyDef bDef;       //锟斤拷锟藉定锟斤拷
+	PolygonDef pDef;    //锟斤拷状锟斤拷锟斤拷
 	int colorR;
 	int colorG;
 	int colorB;
