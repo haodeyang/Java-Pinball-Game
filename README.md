@@ -1,6 +1,6 @@
 # Java-Pinball-Game
 
-Refactoring in progress...
+Refactoring and documentation in progress...
 
 This repo contains the code for a pinball game developed for a Java Object-Oriented Programming course in 2014.
 
